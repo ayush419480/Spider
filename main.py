@@ -1,4 +1,4 @@
-# --- START OF FILE main.py (Final Corrected Code for Render Deployment) ---
+# --- START OF FILE main.py (Final Corrected Code for Render Deployment - Checked all print quotes) ---
 
 # --- Imports from original main.py ---
 import requests , os , psutil , sys , jwt , pickle , json , binascii , time , urllib3 , base64 , datetime , re , socket , threading , ssl , pytz , aiohttp
@@ -42,7 +42,7 @@ lock = threading.Lock()
 
 
 # =================================================================
-# ✅ FIX 1: Health Check Route (Stops Render returning 404 on base URL)
+# ✅ Health Check Route (Stops Render returning 404 on base URL)
 # =================================================================
 @app.route('/', methods=['GET'])
 def api_status():
@@ -55,7 +55,7 @@ def api_status():
 
 
 # =================================================================
-# ✅ FIX 2 & 3: Corrected API Route for Vercel Proxy
+# ✅ Corrected API Route for Vercel Proxy
 # =================================================================
 @app.route('/join', methods=['POST'])
 def join_team_route():
@@ -91,7 +91,7 @@ def join_team_route():
 
 
 # =================================================================
-# 🛑 FIX 5: BotConnection Class Definition (Removed invalid syntax)
+# ✅ BotConnection Class Definition (Safe Stub)
 # =================================================================
 class BotConnection:
     # Placeholder for the run method (required if MainBot uses it)
@@ -121,9 +121,7 @@ async def main():
     
     # --- This part remains the same: starting Flask in a new thread ---
     def run_flask():
-        # =================================================================
-        # ✅ FIX 4: Use Environment PORT Variable (MANDATORY for Render)
-        # =================================================================
+        # ✅ Use Environment PORT Variable (MANDATORY for Render)
         port = int(os.environ.get('PORT', 30151)) 
         print(f"Starting Flask API on host 0.0.0.0, port {port}")
         app.run(host='0.0.0.0', port=port, debug=False)
@@ -136,17 +134,21 @@ async def main():
     print("FIX_VERSION: Chat logic is now running a debug print check.") 
     print(render('WINTER', colors=['white', 'green'], align='center'))
     print('')
-    # The \n at the end of the f-string is handled by Python, but we need to ensure the quotes are safe.
-    print(f" - BoT STarTinG And OnLine on TarGeT : {TarGeT} | BOT NAME : {acc_name}\n")
-    # 🛑 FIX APPLIED HERE: Changed outer quotes from " to ' to fix the SyntaxError caused by the internal "
+    # Print 1: Used single quote for safe internal \n
+    print(f' - BoT STarTinG And OnLine on TarGeT : {TarGeT} | BOT NAME : {acc_name}\n')
+    # Print 2: Fixed by changing outer quotes to single quotes
     print(f' - BoT sTaTus > GooD | OnLinE ! (:")') 
     print(f" - Web UI and API started on port {port}")
     print(f" - API Example: POST to /join with form data.")
-    print(f" - Subscribe > Spideerio | Gaming ! (:\")    
+    # Print 3: Fixed by changing outer quotes to single quotes
+    print(f' - Subscribe > Spideerio | Gaming ! (:")')    
     await asyncio.gather(task1, task2) # This keeps your bot running 24/7 (if kept awake)
 
 if __name__ == "__main__":
     try:
+        # Note: You need to make sure Target, Pw, key, iv, AutHToKen, acc_name, 
+        # OnLineiP, and OnLineporT are defined globally or within MainBot/TcPOnLine's scope 
+        # for this to run successfully beyond the deployment stage.
         asyncio.run(main())
     except KeyboardInterrupt:
         print("Bot Stopped by User.")
