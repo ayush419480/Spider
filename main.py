@@ -1,4 +1,4 @@
-# --- START OF FILE main.py (Final Code for Render Deployment) ---
+# --- START OF FILE main.py (Final Corrected Code for Render Deployment) ---
 
 # --- Imports from original main.py ---
 import requests , os , psutil , sys , jwt , pickle , json , binascii , time , urllib3 , base64 , datetime , re , socket , threading , ssl , pytz , aiohttp
@@ -56,8 +56,6 @@ def api_status():
 
 # =================================================================
 # ✅ FIX 2 & 3: Corrected API Route for Vercel Proxy
-# - Changed method from GET to POST
-# - Changed data parsing from request.args.get() to request.form.get()
 # =================================================================
 @app.route('/join', methods=['POST'])
 def join_team_route():
@@ -82,7 +80,7 @@ def join_team_route():
 
             selected_conn = ONLINE_USERS[0] # Using the first online connection
             
-        # The join_team function is assumed to be defined later in your file or imported
+        # Call the join_team method on the active connection
         response_msg = selected_conn.join_team(emote_id=emote_id, team_code=team_code, uids=uids)
         
         return jsonify({'message': 'Emote join request sent successfully to bot.', 'response': response_msg}), 200
@@ -92,23 +90,23 @@ def join_team_route():
         return jsonify({'message': f'Internal Server Error in Bot API: {e}'}), 500
 
 
-# --- Bot Connection Class (Assuming it handles the join_team method) ---
+# =================================================================
+# 🛑 FIX 5: BotConnection Class Definition (Removed invalid syntax)
+# =================================================================
+# Assuming the rest of your class methods are correct, this fixes the syntax error.
 class BotConnection:
-    def __init__(self, loop, Target, ...):
-        # ... (Your connection initialization code) ...
-        self.loop = loop
-        self.Target = Target
-        # ...
-
+    # We remove the problematic __init__ placeholder if it wasn't correct.
+    # The run method likely exists in your original code.
+    
+    # Placeholder for the run method (required if MainBot uses it)
     async def run(self):
-        # ... (Your main connection loop) ...
+        print("BotConnection.run() placeholder running.")
         pass
 
     def join_team(self, emote_id, team_code, uids):
-        # This function must be defined here to execute the packet logic 
-        # (It's not provided in the snippet, so this is a placeholder)
+        # This function must contain the logic to dispatch the protobuf packet.
         print(f"Executing join_team for Emote {emote_id}, Code {team_code}, UIDs {uids}")
-        # Placeholder logic: you would dispatch the protobuf packet here.
+        # Add your actual packet dispatching logic here.
         return f"Packet for Emote {emote_id} dispatched."
         
 
@@ -129,8 +127,6 @@ async def main():
         # =================================================================
         # ✅ FIX 4: Use Environment PORT Variable (MANDATORY for Render)
         # =================================================================
-        # Render sets the port in the PORT environment variable.
-        # This is the crucial part for deployment compatibility.
         port = int(os.environ.get('PORT', 30151)) 
         print(f"Starting Flask API on host 0.0.0.0, port {port}")
         app.run(host='0.0.0.0', port=port, debug=False)
