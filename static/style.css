@@ -1,0 +1,201 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+.input-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.team-code-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.team-code-section label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.team-code-section input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+    flex-grow: 1;
+}
+
+.uid-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.uid-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.uid-section input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.result-display {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.result-display h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.api-url-box {
+    background-color: #eef1f5;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    word-break: break-all;
+    white-space: pre-wrap; /* Important for showing formatted JSON */
+    min-height: 50px;
+}
+
+/* --- BADLAV YAHAN SE SHURU HAI --- */
+
+.emote-list {
+    display: grid;
+    /* Bade screen ke liye, cards 200px se kam nahi honge */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    gap: 15px; /* Thoda gap kam kiya */
+}
+
+.emote-item {
+    background-color: #fff;
+    border-radius: 8px; /* Thoda gol corner */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.emote-item:hover {
+    transform: translateY(-5px);
+}
+
+.emote-item img {
+    width: 80px;  /* Image size chota kiya */
+    height: 80px; /* Image size chota kiya */
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #eee;
+}
+
+.emote-details {
+    margin-bottom: 10px;
+    flex-grow: 1; /* Jagah lene ke liye */
+}
+
+.emote-name {
+    font-weight: bold;
+    font-size: 0.9em; /* Font size chota kiya */
+    margin: 5px 0;
+}
+
+.emote-id {
+    color: #666;
+    margin: 0; /* Extra margin hataya */
+    font-size: 0.8em; /* Font size chota kiya */
+}
+
+.send-button {
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.send-button:hover {
+    background-color: #45a049;
+}
+
+.send-button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+/* === MOBILE KE LIYE SPECIAL STYLE === */
+/* Jab screen ki width 768px ya usse kam hogi, ye style lagega */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px; /* Mobile par padding kam */
+    }
+
+    .emote-list {
+        /* Sidhe 3 columns bana diye, jaisa aapne pucha */
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 10px; /* Mobile par gap aur kam */
+    }
+
+    .emote-item {
+        padding: 8px; /* Card ke andar ki padding kam */
+    }
+    
+    .emote-item img {
+        width: 60px; /* Image aur chota */
+        height: 60px;
+    }
+    
+    .emote-name {
+        font-size: 12px; /* Font size fixed, taaki naam fit ho jaye */
+    }
+    
+    .emote-id {
+        font-size: 10px;
+    }
+    
+    .send-button {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}

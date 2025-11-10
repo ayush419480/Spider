@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emote Sender</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Emote Sender</h1>
+        </header>
+        
+        <div class="input-section">
+            <div class="team-code-section">
+                <label for="team-code">Team Code:</label>
+                <input type="text" id="team-code" placeholder="Enter team code">
+            </div>
+            <div class="uid-section">
+                <label for="uid1">UID 1:</label>
+                <input type="text" class="uid-input" id="uid1" placeholder="Enter UID 1">
+                
+                <label for="uid2">UID 2:</label>
+                <input type="text" class="uid-input" id="uid2" placeholder="Enter UID 2 (optional)">
+                
+                <label for="uid3">UID 3:</label>
+                <input type="text" class="uid-input" id="uid3" placeholder="Enter UID 3 (optional)">
+                
+                <label for="uid4">UID 4:</label>
+                <input type="text" class="uid-input" id="uid4" placeholder="Enter UID 4 (optional)">
+            </div>
+        </div>
+
+        <div class="result-display">
+            <h3>Result:</h3>
+            <pre id="result-box" class="api-url-box">Ready. Fill in the details and send an emote.</pre>
+        </div>
+
+        <div class="emote-list">
+            {% for emote in emotes %}
+            <div class="emote-item">
+                <img src="{{ url_for('static', filename='images/' + emote.image) }}" alt="{{ emote.name }}">
+                <div class="emote-details">
+                    <p class="emote-name">{{ emote.name }}</p>
+                    <p class="emote-id">ID: {{ emote.id }}</p>
+                </div>
+                <button class="send-button" data-emote-id="{{ emote.id }}">Send</button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const emoteListContainer = document.querySelector('.emote-list');
+            const resultBox = document.getElementById('result-box');
+
+            emoteListContainer.addEventListener('click', function(event) {
+                // Check if a "Send" button was clicked
+                if (event.target.classList.contains('send-button')) {
+                    const sendButton = event.target;
+                    
+                    // --- 1. Gather all data from the form ---
+                    const teamCode = document.getElementById('team-code').value.trim();
+                    const emoteId = sendButton.getAttribute('data-emote-id');
+                    
+                    const uidInputs = document.querySelectorAll('.uid-input');
+                    const uids = [];
+                    uidInputs.forEach(input => {
+                        const uidValue = input.value.trim();
+                        if (uidValue) {
+                            uids.push(uidValue);
+                        }
+                    });
+
+                    // --- 2. Validate the data ---
+                    if (!teamCode) {
+                        resultBox.textContent = 'Error: Please enter a team code.';
+                        return;
+                    }
+                    if (uids.length === 0) {
+                        resultBox.textContent = 'Error: Please enter at least one UID.';
+                        return;
+                    }
+                    
+                    resultBox.textContent = 'Sending request...';
+                    sendButton.disabled = true; // Prevent multiple clicks
+
+                    // --- 3. Prepare data and send to our own backend server ---
+                    const payload = {
+                        team_code: teamCode,
+                        emote_id: emoteId,
+                        uids: uids
+                    };
+                    
+                    fetch('/send_emote', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // --- 4. Display the response from our backend ---
+                        // Using JSON.stringify for nice formatting
+                        resultBox.textContent = JSON.stringify(data, null, 2); 
+                    })
+                    .catch(error => {
+                        console.error('Fetch Error:', error);
+                        resultBox.textContent = 'Error communicating with the server. See console for details.';
+                    })
+                    .finally(() => {
+                        sendButton.disabled = false; // Re-enable the button
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
