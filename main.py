@@ -293,7 +293,7 @@ async def TcPOnLine(ip, port, key, iv, AutHToKen, reconnect_delay=0.5):
                         await SEndPacKeT(whisper_writer , online_writer , 'ChaT' , JoinCHaT)
 
 
-                        message = f'[B][C]{get_random_color()}\n- WeLComE To Emote Bot ! '
+                        message = f'[B][C]{get_random_color()}\n- WeLComE To DECIMAL CHEATS Emote Bot ! '
                         P = await SEndMsG(0 , message , OwNer_UiD , OwNer_UiD , key , iv)
                         await SEndPacKeT(whisper_writer , online_writer , 'ChaT' , P)
 
