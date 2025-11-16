@@ -28,15 +28,15 @@ EMOTE_ALIASES = {
     "m4a1": 909033001, "famas": 909000090, "m1887": 909035007, "thompson": 909038010,
     "g18": 909038012, "woodpecker": 909042008, "parafal": 909045001, "groza": 909041005,
     "p90": 909049010, "m60": 909051003, "fist": 909037011,
-    "ride": 909051014, "circle": 909050009, "petals": 909051013, "bow": 909051012,
-    "bike": 909051010, "shower": 909051004, "dream": 909051002, "angelic": 909051001,
-    "paint": 909048015, "sword": 909044015, "flare": 909041008, "owl": 909049003,
-    "thor": 909050008, "bigdill": 909049001, "csgm": 909041013, "mapread": 909050014,
-    "tomato": 909050015, "ninja": 909050002, "level100": 909042007, "auraboat": 909050028,
-    "flyingguns": 909049012, "heart": 909000045, "flag": 909000034, "pushup": 909000012,
-    "devil": 909000020, "shootdance": 909000008, "chicken": 909000006, "throne": 909000014,
-    "rose": 909000010, "valentine": 909038004, "rampage": 909034001, "guildflag": 909049017,
-    "fish": 909040004, "inosuke": 909041003, "brgm": 909041012,
+    "ride": 90905101, "circle": 909050009, "petals": 909051013, "bow": 909051012,
+    "bike": 909051010, "shower": 90905100, "dream": 909051002, "angelic": 909051001,
+    "paint": 90908015, "sword": 9090015, "flare": 90901008, "owl": 90909003,
+    "thor": 909050008, "bigdill": 90909001, "csgm": 90901013, "mapread": 90905001,
+    "tomato": 909050015, "ninja": 909050002, "level100": 90902007, "auraboat": 909050028,
+    "flyingguns": 90909012, "heart": 90900005, "flag": 90900003, "pushup": 909000012,
+    "devil": 909000020, "shootdance": 909000008, "chicken": 909000006, "throne": 90900001,
+    "rose": 909000010, "valentine": 90903800, "rampage": 90903001, "guildflag": 90909017,
+    "fish": 90900004, "inosuke": 909041003, "brgm": 909041012,
     "naruto": 909050003, "kabuto": 909050002, "minato": 909050006, "football": 909048016,
     "p": 909000012, "t": 909000014, "r": 909000010, "l100": 909042007
 }
@@ -418,7 +418,7 @@ def do_login():
     discord_pw = request.form.get('discord-pw', '').strip()
     telegram_pw = request.form.get('telegram-pw', '').strip()
 
-    if discord_pw == "4" and telegram_pw == "4":
+    if discord_pw == "433" and telegram_pw == "335":
         session['logged_in'] = True
         return jsonify({"status": "success", "redirect": "/index"})
     else:
